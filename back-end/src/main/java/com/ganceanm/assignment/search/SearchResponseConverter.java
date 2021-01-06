@@ -1,0 +1,49 @@
+package com.ganceanm.assignment.search;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Component;
+
+import com.ganceanm.assignment.room.api.converter.RoomListConverter;
+import com.ganceanm.assignment.room.model.Room;
+import com.ganceanm.assignment.user.api.converter.UserListConverter;
+import com.ganceanm.assignment.user.model.User;
+
+@Component
+public class SearchResponseConverter {
+
+	@Autowired
+	UserListConverter userConverter;
+	
+	@Autowired
+	RoomListConverter roomConverter;
+	
+	
+	@SuppressWarnings("unchecked")
+	public SearchResponse toMsg(Page<?> from) {
+		SearchResponse to = new SearchResponse();
+		
+		to.setPage(from.getNumber());
+		
+		to.setPageCount(from.getTotalPages());
+		
+		to.setTotal(from.getTotalElements());
+		
+		
+		
+		if(!from.getContent().isEmpty()) {
+			Object obj = from.getContent().get(0);
+			
+			if(obj instanceof User) {
+				to.setValues(userConverter.toMsg((List<User>)from.getContent()));
+			} else if (obj instanceof Room) {
+				to.setValues(roomConverter.toMsg((List<Room>)from.getContent()));
+			} 
+			
+		}
+		
+		return to;
+	}
+}
