@@ -1,4 +1,4 @@
-package com.ganceanm.assignment.room.api.message;
+package com.ganceanm.assignment.internship.api.message;
 
 import java.util.List;
 
