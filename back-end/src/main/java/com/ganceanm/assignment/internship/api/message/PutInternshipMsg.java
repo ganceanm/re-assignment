@@ -2,7 +2,7 @@ package com.ganceanm.assignment.internship.api.message;
 
 import java.util.List;
 
-public class PutRoomMsg {
+public class PutInternshipMsg {
 	Long id;
 	int beds;
 	List<Long> users;

@@ -1,8 +1,9 @@
 package com.ganceanm.assignment.aplication.model;
 
 public enum AplicationStatus {
-	IT,
-	BIOLOGY,
-	TOURISM,
-	MEDICAL
+	SUBMITTED,
+	ASSESSMENT,
+	INTERVIEW,
+	ACCEPTED,
+	REJECTED
 }

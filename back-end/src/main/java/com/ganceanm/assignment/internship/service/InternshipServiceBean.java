@@ -16,11 +16,13 @@ import com.ganceanm.assignment.internship.model.Internship;
 import com.ganceanm.assignment.internship.model.InternshipCategory;
 import com.ganceanm.assignment.internship.model.InternshipPagingRepository;
 import com.ganceanm.assignment.internship.model.InternshipRepository;
+import com.ganceanm.assignment.internship.model.InternshipStatus;
 import com.ganceanm.assignment.user.model.User;
+import com.ganceanm.assignment.user.model.UserRole;
 import com.ganceanm.assignment.user.service.UserService;
 
 @Service
-public class InternshipServiceBean implements InsernshipService {
+public class InternshipServiceBean implements InternshipService {
 
 	@Autowired
 	private InternshipRepository internshipRepository;
@@ -55,9 +57,8 @@ public class InternshipServiceBean implements InsernshipService {
 	}
 
 	@Override
-	public Page<Internship> findByString(int page, int limit, String params) {
-//		return internshipPagingRepository.findRoomByString(params, PageRequest.of(page, limit));
-		return null;
+	public Page<Internship> find(int page, int limit, User user) {
+		return	internshipPagingRepository.findByCreator(user, PageRequest.of(page, limit));
 	}
 	
 	@Override
@@ -68,5 +69,15 @@ public class InternshipServiceBean implements InsernshipService {
 			save(internship);
 			return ResponseEntity.accepted().build();
 		}
+
+	@Override
+	public ResponseEntity<HttpStatus> create(Internship internship, User user) {
+		
+		internship.setCreatedBy(user);
+		internship.setStatus(InternshipStatus.ACTIVE);
+		
+		save(internship);
+		return ResponseEntity.accepted().build();
+	}
 	}
 

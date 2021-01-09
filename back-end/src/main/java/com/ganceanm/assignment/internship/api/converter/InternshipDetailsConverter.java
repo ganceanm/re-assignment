@@ -9,13 +9,14 @@ import org.springframework.stereotype.Component;
 import com.ganceanm.assignment.helpers.exception.UserNotFoundException;
 import com.ganceanm.assignment.internship.api.message.InternshipDetailsMsg;
 import com.ganceanm.assignment.internship.model.Internship;
+import com.ganceanm.assignment.internship.model.InternshipCategory;
 import com.ganceanm.assignment.user.api.converter.SimpleUserConverter;
 import com.ganceanm.assignment.user.api.message.SimpleUserMsg;
 import com.ganceanm.assignment.user.model.User;
 import com.ganceanm.assignment.user.service.UserService;
 
 @Component
-public class RoomDetailsConverter {
+public class InternshipDetailsConverter {
 	
 	@Autowired
 	SimpleUserConverter userConverter;
@@ -32,6 +33,27 @@ public class RoomDetailsConverter {
 		to.setCreatedAt(from.getCreatedAt().toString());
 		to.setDescription(from.getDescription());
 		to.setTitle(from.getTitle());
+		to.setStartingDate(from.getStartingDate());
+		to.setDuration(from.getDuration());
+		to.setPaid(from.getPaid());
+		to.setLocation(from.getLocation());
+		to.setHoursPerDay(from.getHoursPerDay());
+		
+		return to;
+	}
+	
+	public Internship toEntity(InternshipDetailsMsg from) {
+		Internship to = new Internship();
+		
+		to.setId(from.getId());
+		to.setCategory(InternshipCategory.valueOf(from.getCategory()));
+		to.setDescription(from.getDescription());
+		to.setTitle(from.getTitle());
+		to.setStartingDate(from.getStartingDate());
+		to.setDuration(from.getDuration());
+		to.setPaid(from.getPaid());
+		to.setLocation(from.getLocation());
+		to.setHoursPerDay(from.getHoursPerDay());
 		
 		return to;
 	}

@@ -10,6 +10,7 @@ import com.ganceanm.assignment.internship.model.Internship;
 
 @Component
 public class InternshipListConverter {
+	
 	public List<SimpleInternshipMsg> toMsg(List<Internship> from) {
 		
 		List<SimpleInternshipMsg> to = new ArrayList<>();

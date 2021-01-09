@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import com.ganceanm.assignment.aplication.model.Aplication;
 import com.ganceanm.assignment.internship.api.converter.InternshipListConverter;
 import com.ganceanm.assignment.internship.model.Internship;
 import com.ganceanm.assignment.user.api.converter.UserListConverter;
@@ -18,7 +19,8 @@ public class SearchResponseConverter {
 	UserListConverter userConverter;
 	
 	@Autowired
-	InternshipListConverter roomConverter;
+	InternshipListConverter internshipListConverter;
+	
 	
 	
 	@SuppressWarnings("unchecked")
@@ -39,7 +41,9 @@ public class SearchResponseConverter {
 			if(obj instanceof User) {
 				to.setValues(userConverter.toMsg((List<User>)from.getContent()));
 			} else if (obj instanceof Internship) {
-				to.setValues(roomConverter.toMsg((List<Internship>)from.getContent()));
+				to.setValues(internshipListConverter.toMsg((List<Internship>)from.getContent()));
+			} else if (obj instanceof Aplication) {
+//				to.setValues(roomConverter.toMsg((List<Aplication>)from.getContent()));
 			} 
 			
 		}

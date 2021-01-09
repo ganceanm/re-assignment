@@ -44,7 +44,6 @@ public class Internship extends BaseTableEntity {
 	@Column
 	private String title;
 
-	
 	@Column
 	private Date startingDate;
 	
