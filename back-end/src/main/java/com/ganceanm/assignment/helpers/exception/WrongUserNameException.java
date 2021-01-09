@@ -1,4 +1,4 @@
-package com.ganceanm.assignment.aux.exception;
+package com.ganceanm.assignment.helpers.exception;
 
 public class WrongUserNameException extends Throwable{
 

@@ -6,9 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.ganceanm.assignment.aux.exception.NotUniqueUserNameException;
-import com.ganceanm.assignment.aux.exception.UserNotFoundException;
-import com.ganceanm.assignment.aux.exception.WrongUserNameException;
+import com.ganceanm.assignment.helpers.exception.NotUniqueUserNameException;
+import com.ganceanm.assignment.helpers.exception.UserNotFoundException;
+import com.ganceanm.assignment.helpers.exception.WrongUserNameException;
 import com.ganceanm.assignment.user.model.User;
 
 public interface UserService {

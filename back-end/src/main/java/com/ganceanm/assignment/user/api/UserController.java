@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ganceanm.assignment.aux.exception.NotUniqueUserNameException;
-import com.ganceanm.assignment.aux.exception.UserNotFoundException;
+import com.ganceanm.assignment.helpers.exception.NotUniqueUserNameException;
+import com.ganceanm.assignment.helpers.exception.UserNotFoundException;
 import com.ganceanm.assignment.search.SearchResponse;
 import com.ganceanm.assignment.search.SearchResponseConverter;
 import com.ganceanm.assignment.security.clearance.ClearanceTwo;

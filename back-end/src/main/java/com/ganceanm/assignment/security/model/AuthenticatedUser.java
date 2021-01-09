@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.ganceanm.assignment.aux.exception.WrongUserNameException;
+import com.ganceanm.assignment.helpers.exception.WrongUserNameException;
 import com.ganceanm.assignment.user.model.User;
 import com.ganceanm.assignment.user.service.UserService;
 

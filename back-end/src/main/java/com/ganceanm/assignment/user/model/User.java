@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.ganceanm.assignment.aux.model.BaseTableEntity;
+import com.ganceanm.assignment.helpers.model.BaseTableEntity;
 @Entity
 @Table(name = "users")
 public class User extends BaseTableEntity {

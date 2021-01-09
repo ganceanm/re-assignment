@@ -16,11 +16,11 @@ import com.ganceanm.assignment.auth.api.message.AuthMsg;
 import com.ganceanm.assignment.auth.api.message.RegistrationMsg;
 import com.ganceanm.assignment.auth.api.message.SetPasswordMsg;
 import com.ganceanm.assignment.auth.service.AuthService;
-import com.ganceanm.assignment.aux.exception.InactiveUserException;
-import com.ganceanm.assignment.aux.exception.NotUniqueUserNameException;
-import com.ganceanm.assignment.aux.exception.UserNotFoundException;
-import com.ganceanm.assignment.aux.exception.WrongPasswordException;
-import com.ganceanm.assignment.aux.exception.WrongUserNameException;
+import com.ganceanm.assignment.helpers.exception.InactiveUserException;
+import com.ganceanm.assignment.helpers.exception.NotUniqueUserNameException;
+import com.ganceanm.assignment.helpers.exception.UserNotFoundException;
+import com.ganceanm.assignment.helpers.exception.WrongPasswordException;
+import com.ganceanm.assignment.helpers.exception.WrongUserNameException;
 import com.ganceanm.assignment.auth.api.converter.RegistrationConverter;
 import com.ganceanm.assignment.user.service.UserService;
 

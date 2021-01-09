@@ -15,7 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import com.ganceanm.assignment.aux.exception.NoAuthHeaderException;
+import com.ganceanm.assignment.helpers.exception.NoAuthHeaderException;
 
 public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 

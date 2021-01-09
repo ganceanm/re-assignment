@@ -6,7 +6,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ganceanm.assignment.aux.exception.security.TokenExpiredException;
+import com.ganceanm.assignment.helpers.exception.security.TokenExpiredException;
 import com.ganceanm.assignment.security.model.AuthenticationTokenDetails;
 import com.ganceanm.assignment.user.model.UserRole;
 

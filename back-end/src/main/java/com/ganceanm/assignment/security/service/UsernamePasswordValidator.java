@@ -3,9 +3,9 @@ package com.ganceanm.assignment.security.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ganceanm.assignment.aux.exception.InactiveUserException;
-import com.ganceanm.assignment.aux.exception.WrongPasswordException;
-import com.ganceanm.assignment.aux.exception.WrongUserNameException;
+import com.ganceanm.assignment.helpers.exception.InactiveUserException;
+import com.ganceanm.assignment.helpers.exception.WrongPasswordException;
+import com.ganceanm.assignment.helpers.exception.WrongUserNameException;
 import com.ganceanm.assignment.user.model.User;
 import com.ganceanm.assignment.user.model.UserStatus;
 import com.ganceanm.assignment.user.service.UserService;

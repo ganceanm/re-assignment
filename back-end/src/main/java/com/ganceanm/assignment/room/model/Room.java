@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.ganceanm.assignment.aux.model.BaseTableEntity;
+import com.ganceanm.assignment.helpers.model.BaseTableEntity;
 
 @Entity
 @Table(name = "rooms")

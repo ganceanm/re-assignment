@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ganceanm.assignment.aux.exception.UserNotFoundException;
+import com.ganceanm.assignment.helpers.exception.UserNotFoundException;
 import com.ganceanm.assignment.room.api.message.RoomDetailsMsg;
 import com.ganceanm.assignment.room.model.Room;
 import com.ganceanm.assignment.user.api.converter.SimpleUserConverter;

@@ -1,4 +1,4 @@
-package com.ganceanm.assignment.aux.model;
+package com.ganceanm.assignment.helpers.model;
 
 import java.util.Date;
 

@@ -1,4 +1,4 @@
-package com.ganceanm.assignment.aux.exception.security;
+package com.ganceanm.assignment.helpers.exception.security;
 
 public class TokenExpiredException extends Throwable {
 

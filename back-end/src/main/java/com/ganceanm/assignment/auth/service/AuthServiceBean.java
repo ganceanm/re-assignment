@@ -8,12 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Service;
 
-import com.ganceanm.assignment.aux.exception.InactiveUserException;
-import com.ganceanm.assignment.aux.exception.UserNotFoundException;
-import com.ganceanm.assignment.aux.exception.WrongPasswordException;
-import com.ganceanm.assignment.aux.exception.WrongUserNameException;
-import com.ganceanm.assignment.aux.exception.security.TokenExpiredException;
-import com.ganceanm.assignment.aux.exception.security.TokenMalformedException;
+import com.ganceanm.assignment.helpers.exception.InactiveUserException;
+import com.ganceanm.assignment.helpers.exception.UserNotFoundException;
+import com.ganceanm.assignment.helpers.exception.WrongPasswordException;
+import com.ganceanm.assignment.helpers.exception.WrongUserNameException;
+import com.ganceanm.assignment.helpers.exception.security.TokenExpiredException;
+import com.ganceanm.assignment.helpers.exception.security.TokenMalformedException;
 import com.ganceanm.assignment.security.model.AuthenticationTokenDetails;
 import com.ganceanm.assignment.security.service.AuthenticationTokenService;
 import com.ganceanm.assignment.security.service.PasswordEncoder;

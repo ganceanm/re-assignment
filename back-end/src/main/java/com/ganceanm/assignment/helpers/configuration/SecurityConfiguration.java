@@ -1,4 +1,4 @@
-package com.ganceanm.assignment.aux.configuration;
+package com.ganceanm.assignment.helpers.configuration;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

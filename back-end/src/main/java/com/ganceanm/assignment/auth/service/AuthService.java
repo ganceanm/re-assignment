@@ -4,10 +4,10 @@ package com.ganceanm.assignment.auth.service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 
-import com.ganceanm.assignment.aux.exception.InactiveUserException;
-import com.ganceanm.assignment.aux.exception.WrongPasswordException;
-import com.ganceanm.assignment.aux.exception.WrongUserNameException;
-import com.ganceanm.assignment.aux.exception.security.TokenExpiredException;
+import com.ganceanm.assignment.helpers.exception.InactiveUserException;
+import com.ganceanm.assignment.helpers.exception.WrongPasswordException;
+import com.ganceanm.assignment.helpers.exception.WrongUserNameException;
+import com.ganceanm.assignment.helpers.exception.security.TokenExpiredException;
 
 
 public interface AuthService {

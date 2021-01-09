@@ -1,4 +1,4 @@
-package com.ganceanm.assignment.aux.exception;
+package com.ganceanm.assignment.helpers.exception;
 
 import org.springframework.security.core.AuthenticationException;
 

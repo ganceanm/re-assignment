@@ -1,4 +1,4 @@
-package com.ganceanm.assignment.aux.configuration;
+package com.ganceanm.assignment.helpers.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

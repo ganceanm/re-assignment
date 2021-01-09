@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.ganceanm.assignment.aux.exception.UserNotFoundException;
+import com.ganceanm.assignment.helpers.exception.UserNotFoundException;
 import com.ganceanm.assignment.room.model.Room;
 import com.ganceanm.assignment.room.model.RoomPagingRepository;
 import com.ganceanm.assignment.room.model.RoomRepository;

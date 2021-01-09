@@ -3,7 +3,7 @@ package com.ganceanm.assignment.user.api.converter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ganceanm.assignment.aux.exception.UserNotFoundException;
+import com.ganceanm.assignment.helpers.exception.UserNotFoundException;
 import com.ganceanm.assignment.user.api.message.UserMsg;
 import com.ganceanm.assignment.user.model.User;
 import com.ganceanm.assignment.user.service.UserService;

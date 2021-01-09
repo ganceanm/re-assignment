@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import com.ganceanm.assignment.auth.service.AuthService;
-import com.ganceanm.assignment.aux.exception.security.TokenExpiredException;
+import com.ganceanm.assignment.helpers.exception.security.TokenExpiredException;
 
 @Component
 public class AuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
