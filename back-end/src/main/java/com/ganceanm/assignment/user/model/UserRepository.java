@@ -15,6 +15,4 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Query("SELECT u FROM User u where u.resetToken = :token")
 	User findUserByResetToken(@Param("token") String token);
 	
-	@Query("SELECT u FROM User u where u.room = :room")
-	List<User> findUsersByRoomNumber(@Param("room") Room room);
 }
