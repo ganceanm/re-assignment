@@ -1,5 +1,7 @@
 package com.ganceanm.assignment.internship.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -43,9 +45,63 @@ public class Internship extends BaseTableEntity {
 	private String title;
 
 	
+	@Column
+	private Date startingDate;
+	
+	@Column
+	private String duration;
+	
+	@Column
+	private Boolean paid;
+	
+	@Column
+	private String location;
+	
+	@Column
+	private Integer hoursPerDay;
 	
 	
 	
+	public Date getStartingDate() {
+		return startingDate;
+	}
+
+	public void setStartingDate(Date startingDate) {
+		this.startingDate = startingDate;
+	}
+
+	public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
+	}
+
+	public Boolean getPaid() {
+		return paid;
+	}
+
+	public void setPaid(Boolean paid) {
+		this.paid = paid;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public Integer getHoursPerDay() {
+		return hoursPerDay;
+	}
+
+	public void setHoursPerDay(Integer hoursPerDay) {
+		this.hoursPerDay = hoursPerDay;
+	}
+
 	public String getTitle() {
 		return title;
 	}
