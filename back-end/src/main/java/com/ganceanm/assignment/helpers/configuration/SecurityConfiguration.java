@@ -29,9 +29,8 @@ import com.ganceanm.assignment.security.service.AuthenticationTokenSettings;
 @EnableConfigurationProperties(AuthenticationTokenSettings.class)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(new AntPathRequestMatcher("/auth/login"),
-			new AntPathRequestMatcher("/auth/setpassword"), new AntPathRequestMatcher("/auth/verifyresetable/*"),
-			new AntPathRequestMatcher("/auth/resetpassword"),
+	private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
+			new AntPathRequestMatcher("/auth/**"),
 //		    new AntPathRequestMatcher("/socket"),
 			new AntPathRequestMatcher("/error/**"));
 

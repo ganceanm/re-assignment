@@ -10,9 +10,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@PreAuthorize("hasAuthority(T(com.ganceanm.allamvizsga.user.model.UserRole).SYS_ADMIN.toString())"
-		+ " || hasAuthority(T(com.ganceanm.allamvizsga.user.model.UserRole).RECRUITER.toString())" 
-		+ " || hasAuthority(T(com.ganceanm.allamvizsga.user.model.UserRole).STUDENT.toString())")
+@PreAuthorize("hasAuthority(T(com.ganceanm.assignment.user.model.UserRole).SYS_ADMIN.toString())"
+		+ " || hasAuthority(T(com.ganceanm.assignment.user.model.UserRole).RECRUITER.toString())" 
+		+ " || hasAuthority(T(com.ganceanm.assignment.user.model.UserRole).STUDENT.toString())")
 public @interface ClearanceZero {
 	/*
 	 * Security Clearance annotation for authenticated users

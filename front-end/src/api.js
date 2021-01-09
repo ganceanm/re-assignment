@@ -2,7 +2,7 @@ import axios from 'axios';
 import store from './store/store'
 import { loginExpired } from './store/auth/actions';
 
-const location = "http://localhost:8080/assignment/api/";
+const location = "http://localhost:8080/api/";
 
 axios.defaults.baseURL = location;
 axios.defaults.headers.post['Content-Type'] = 'application/json';

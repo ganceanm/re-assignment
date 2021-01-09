@@ -9,7 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@PreAuthorize("hasAuthority(T(com.ganceanm.allamvizsga.user.model.UserRole).SYS_ADMIN.toString())")
+@PreAuthorize("hasAuthority(T(com.ganceanm.assignment.user.model.UserRole).SYS_ADMIN.toString())")
 public @interface ClearanceTwo {
 	/*
 	 * Security Clearance annotation for admin only methods 

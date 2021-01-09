@@ -9,8 +9,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@PreAuthorize("hasAuthority(T(com.ganceanm.allamvizsga.user.model.UserRole).SYS_ADMIN.toString())"
-		+ " || hasAuthority(T(com.ganceanm.allamvizsga.user.model.UserRole).RECRUITER.toString())")
+@PreAuthorize("hasAuthority(T(com.ganceanm.assignment.user.model.UserRole).SYS_ADMIN.toString())"
+		+ " || hasAuthority(T(com.ganceanm.assignment.user.model.UserRole).RECRUITER.toString())")
 public @interface ClearanceOne {
 	/*
 	 * Security Clearance annotation for recruiter only methods
