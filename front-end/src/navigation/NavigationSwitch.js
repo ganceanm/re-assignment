@@ -22,6 +22,10 @@ import { useSelector } from 'react-redux';
 import CreateInternship from '../pages/internships/create/CreateInternship';
 import EditInternship from '../pages/internships/edit/EditInternship';
 import InternshipPage from '../pages/internships/element/InternshipPage';
+import MyInternships from '../pages/internships/mine/MyInternships';
+import InternshipApplicants from '../pages/internships/applicants/InternshipApplicants';
+import MyProfile from '../pages/profile/MyProfile';
+import Profile from '../pages/profile/Profile';
 
 
 const NavigationSwitch = (props) => {
@@ -33,15 +37,22 @@ const NavigationSwitch = (props) => {
 				component={Dashboard}
 				requiredRole={clearence.Zero} />
 
+
+
+			<ProtectedRoute path="/users/me"
+				toggle={props.drawerToggle}
+				component={MyProfile}
+				requiredRole={clearence.Zero} />
+
 			<ProtectedRoute path="/users/:id"
 				toggle={props.drawerToggle}
-				component={UserDetails}
-				requiredRole={clearence.Two} />
+				component={Profile}
+				requiredRole={clearence.Zero} />
 
-			<ProtectedRoute path="/users"
+			<ProtectedRoute path="/internships/mine"
 				toggle={props.drawerToggle}
-				component={Users}
-				requiredRole={clearence.Two} />
+				component={MyInternships}
+				requiredRole={clearence.Zero} />
 
 			<ProtectedRoute path="/internships/create"
 				toggle={props.drawerToggle}
@@ -53,15 +64,20 @@ const NavigationSwitch = (props) => {
 				component={EditInternship}
 				requiredRole={clearence.One} />
 
+			<ProtectedRoute path="/internships/applicants/:id"
+				toggle={props.drawerToggle}
+				component={InternshipApplicants}
+				requiredRole={clearence.One} />
+
 			<ProtectedRoute path="/internships/:id"
 				toggle={props.drawerToggle}
 				component={InternshipPage}
-				requiredRole={clearence.One} />
+				requiredRole={clearence.Zero} />
 
 			<ProtectedRoute path="/internships"
 				toggle={props.drawerToggle}
 				component={Internships}
-				requiredRole={clearence.One} />
+				requiredRole={clearence.Zero} />
 
 
 			<GuestRoute path="/setpassword/:id" component={SetPassword} />

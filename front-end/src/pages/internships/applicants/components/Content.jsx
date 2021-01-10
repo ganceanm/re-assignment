@@ -20,12 +20,20 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import EditIcon from "@material-ui/icons/Edit";
+import ThumbDownIcon from "@material-ui/icons/ThumbDown";
+import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 
 import qs from "qs";
-import { transformQuery } from "../../../lib/helpers/queryTransformer";
-import { useHistory, useLocation } from "react-router-dom";
-import { APP_BAR_HEIGHT } from "../../../constants/theme";
+import { transformQuery } from "../../../../lib/helpers/queryTransformer";
+import { useHistory, useLocation, useParams } from "react-router-dom";
+import { APP_BAR_HEIGHT } from "../../../../constants/theme";
 import moment from "moment";
+import {
+  getApplicants,
+  promoteApplication,
+  rejectApplication,
+} from "../../../../store/applicants/actions";
+import WithAlert from "../../../../components/functional/withAlert";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -84,18 +92,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default (props) => {
+function Content(props) {
+  const { showAlert } = props;
   const classes = useStyles();
   const history = useHistory();
 
   const { page, pageCount, total, values } = useSelector(
-    (state) => state.internships.list
+    (state) => state.applicants.list
   );
 
-  const me = useSelector((state) => state.me);
-
   const { isLoading } = props;
-
+  const internshipId = useParams().id;
   const queries = qs.parse(history.location.search, {
     ignoreQueryPrefix: true,
   });
@@ -104,9 +111,31 @@ export default (props) => {
 
   const changePage = (num) => {
     history.push({
-      pathname: `/internships`,
+      pathname: `/internships/applicants/${internshipId}`,
       search: transformQuery({ ...queries, page: num }),
     });
+  };
+
+  const _promoteStage = async (id) => {
+    const result = await promoteApplication(id);
+
+    if (result) {
+      showAlert("general.saveSuccess");
+      getApplicants(internshipId, { page: 0, limit: 15 });
+    } else {
+      showAlert("general.default");
+    }
+  };
+
+  const _reject = async (id) => {
+    const result = await rejectApplication(id);
+
+    if (result) {
+      showAlert("general.saveSuccess");
+      getApplicants(internshipId, { page: 0, limit: 15 });
+    } else {
+      showAlert("general.default");
+    }
   };
 
   return (
@@ -121,24 +150,31 @@ export default (props) => {
             <Table size="small">
               <TableHead>
                 <TableRow>
-                  <TableCell className={classes.tableHead}>Title</TableCell>
-                  <TableCell className={classes.tableHead}>Company</TableCell>
+                  <TableCell className={classes.tableHead}>
+                    Name of applicant
+                  </TableCell>
+
                   <TableCell className={classes.tableHead}>
                     Created At
                   </TableCell>
+
+                  <TableCell className={classes.tableHead}>Status</TableCell>
                   <TableCell />
                 </TableRow>
               </TableHead>
               <TableBody>
                 {values.map((item) => {
                   return (
-                    <TableRow size="small" key={item.id}>
+                    <TableRow
+                      size="small"
+                      key={item.id}
+                      hover
+                      onClick={() => history.push(`/users/${item.applicantId}`)}
+                    >
                       <TableCell>
-                        <ListItemText primary={item.title} />
+                        <ListItemText primary={item.applicantName} />
                       </TableCell>
-                      <TableCell>
-                        <ListItemText secondary={item.createdBy} />
-                      </TableCell>
+
                       <TableCell>
                         <ListItemText
                           secondary={moment(item.createdAt).format(
@@ -146,15 +182,30 @@ export default (props) => {
                           )}
                         />
                       </TableCell>
+                      <TableCell>
+                        <ListItemText secondary={item.status} />
+                      </TableCell>
                       <TableCell align="right">
                         <IconButton
-                          onClick={() =>
-                            history.push(`/internships/${item.id}`)
-                          }
+                          onClick={(evt) => {
+                            evt.stopPropagation();
+                            _reject(item.id);
+                          }}
                           size="small"
                           className={classes.viewButton}
                         >
-                          <VisibilityIcon />
+                          <ThumbDownIcon />
+                        </IconButton>
+
+                        <IconButton
+                          onClick={(evt) => {
+                            evt.stopPropagation();
+                            _promoteStage(item.id);
+                          }}
+                          size="small"
+                          className={classes.viewButton}
+                        >
+                          <ThumbUpIcon />
                         </IconButton>
                       </TableCell>
                     </TableRow>
@@ -194,4 +245,6 @@ export default (props) => {
       )}
     </div>
   );
-};
+}
+
+export default WithAlert(Content);

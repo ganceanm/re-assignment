@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import com.ganceanm.assignment.helpers.exception.NotUniqueUserNameException;
 import com.ganceanm.assignment.helpers.exception.UserNotFoundException;
 import com.ganceanm.assignment.helpers.exception.WrongUserNameException;
+import com.ganceanm.assignment.user.model.Profile;
 import com.ganceanm.assignment.user.model.User;
 
 public interface UserService {
@@ -19,6 +20,7 @@ public interface UserService {
 	public Page<User> findByString(int page, int limit, String params);
 	public ResponseEntity<HttpStatus> createUser(User users) throws NotUniqueUserNameException;
 	public ResponseEntity<HttpStatus> putUser(User users) throws NotUniqueUserNameException;
+	public ResponseEntity<HttpStatus> updateProfile(Profile profile, User users);
 	public ResponseEntity<HttpStatus> deleteUser(Long userId);
 	
 	public User getByResetToken(String token) throws UserNotFoundException;

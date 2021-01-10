@@ -137,10 +137,10 @@ function DrawerNavigator(props) {
 						<Divider />
 						<div className={classes.profileMobile} >
 
-							<Avatar className={classes.avatarMobile}>{me.lastName[0] + me.firstName[0]}</Avatar>
+							<Avatar className={classes.avatarMobile}>{me.userRole[0]}</Avatar>
 							<div>
 								<Typography style={{ fontWeight: "bold" }}>
-									{me.lastName + " " + me.firstName}
+									{me.userName}
 								</Typography>
 								<Typography style={{ fontSize: 12, fontStyle: "italic" }}>
 									{me.userRole}
@@ -165,9 +165,9 @@ function DrawerNavigator(props) {
 							className={classes.logoutIconButton}>
 							<ExitToAppIcon />
 						</IconButton>
-						<Avatar className={classes.avatar}>{me.lastName[0] + me.firstName[0]}</Avatar>
+						<Avatar className={classes.avatar}>{me.userRole[0]}</Avatar>
 						<Typography style={{ fontWeight: "bold" }}>
-							{me.lastName + " " + me.firstName}
+							{me.userName}
 						</Typography>
 						<Typography style={{ fontSize: 12, fontStyle: "italic" }}>
 							{me.userRole}

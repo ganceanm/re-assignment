@@ -17,8 +17,12 @@ public interface AplicationService {
 	public ResponseEntity<HttpStatus> submitAplication(User applicant, Long internshipId);
 	public Aplication getById(Long aplicationId);
 	public Boolean hasUserApplied(User user, Internship internship);
+	public Page<Aplication> findMine(int page, int limit, User user);
 	public Page<Aplication> find(int page, int limit, User user);
 	public Page<Aplication> find(int page, int limit, Internship internship);
+	public Page<Aplication> find(int page, int limit, Long internshipId);
 	public ResponseEntity<HttpStatus> updateAplication(Long id, String status);
-	public ResponseEntity<HttpStatus> cancelAplication(Long aplicationId);
+	public ResponseEntity<HttpStatus> cancelAplication(User user, Long aplicationId);
+	public ResponseEntity<HttpStatus> promoteAplication(Long aplicationId);
+	public ResponseEntity<HttpStatus> rejectAplication(Long aplicationId);
 }

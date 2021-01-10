@@ -100,7 +100,7 @@ public class AuthServiceBean implements AuthService {
 			String url = "http://localhost:3000/#/setpassword/" + u.getResetToken();
 
 			StringBuilder emailText = new StringBuilder("");
-			emailText.append("Hello ").append(u.getFirstName()).append(" ").append(u.getLastName()).append("!\n")
+			emailText.append("Hello!\n")
 					.append("To reset your password click on the following link:\n").append(url);
 
 			emailService.sendEmail(u.getUserName(), "Reset password", emailText.toString());

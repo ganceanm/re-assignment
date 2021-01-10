@@ -7,20 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ganceanm.assignment.aplication.service.AplicationService;
-import com.ganceanm.assignment.helpers.exception.UserNotFoundException;
 import com.ganceanm.assignment.internship.api.message.InternshipDetailsMsg;
 import com.ganceanm.assignment.internship.model.Internship;
 import com.ganceanm.assignment.internship.model.InternshipCategory;
-import com.ganceanm.assignment.user.api.converter.SimpleUserConverter;
-import com.ganceanm.assignment.user.api.message.SimpleUserMsg;
 import com.ganceanm.assignment.user.model.User;
 import com.ganceanm.assignment.user.service.UserService;
 
 @Component
 public class InternshipDetailsConverter {
-	
-	@Autowired
-	SimpleUserConverter userConverter;
 	
 	@Autowired
 	UserService usersService;
@@ -33,7 +27,12 @@ public class InternshipDetailsConverter {
 		
 		to.setId(from.getId());
 		to.setCategory(from.getCategory().toString());
-//		to.setCreatedBy(from.getCreatedBy());
+		to.setCreatedById(from.getCreatedBy().getId());
+		if(from.getCreatedBy().getProfile().getName() != null) {
+			to.setCreatedBy(from.getCreatedBy().getProfile().getCompanyName());
+		} else {
+			to.setCreatedBy(from.getCreatedBy().getUserName());
+		}
 		to.setCreatedAt(from.getCreatedAt().toString());
 		to.setDescription(from.getDescription());
 		to.setTitle(from.getTitle());

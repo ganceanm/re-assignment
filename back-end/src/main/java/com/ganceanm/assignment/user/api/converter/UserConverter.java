@@ -13,6 +13,9 @@ public class UserConverter {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private ProfileConverter profileConverter;
+	
 	public UserMsg toMsg(User from) {
 		UserMsg to = new UserMsg();
 		
@@ -20,9 +23,8 @@ public class UserConverter {
 		to.setUserName(from.getUserName());
 		to.setStatus(from.getStatus());
 		to.setUserRole(from.getUserRole());
-		to.setFirstName(from.getFirstName());
-		to.setLastName(from.getLastName());
-		to.setPhoneNumber(from.getPhoneNumber());
+		
+		to.setProfile(profileConverter.toMsg(from.getProfile(), from.getUserRole()));
 		
 		return to;
 	}
@@ -33,10 +35,8 @@ public class UserConverter {
 		if(to.getId() == null) {
 			throw new UserNotFoundException();
 		} else {
-			to.setFirstName(from.getFirstName());
-			to.setLastName(from.getLastName());
 			to.setUserName(from.getUserName());
-			to.setPhoneNumber(from.getPhoneNumber());
+			to.setProfile(profileConverter.toEntity(from.getProfile()));
 		}
 		
 		return to;

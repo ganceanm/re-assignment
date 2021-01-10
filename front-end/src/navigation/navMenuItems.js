@@ -10,8 +10,8 @@ import clearence from "../constants/clearence";
 const menuItems = (userRole) => {
 	if (userRole === "STUDENT") {
 		return [{
-			path: "/dashboard",
-			text: "Dashboard",
+			path: "/users/me",
+			text: "My profile",
 			clearence: clearence.Zero,
 			icon: (<AccountCircleIcon />)
 		},
@@ -30,8 +30,8 @@ const menuItems = (userRole) => {
 	} else if (userRole === "RECRUITER") {
 		return [
 			{
-				path: "/dashboard",
-				text: "Dashboard",
+				path: "/users/me",
+				text: "My profile",
 				clearence: clearence.One,
 				icon: (<AccountCircleIcon />)
 			},

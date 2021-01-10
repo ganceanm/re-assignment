@@ -9,11 +9,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ganceanm.assignment.aplication.model.Aplication;
+import com.ganceanm.assignment.aplication.service.AplicationService;
 import com.ganceanm.assignment.helpers.exception.UserNotFoundException;
 import com.ganceanm.assignment.internship.model.Internship;
 import com.ganceanm.assignment.internship.model.InternshipCategory;
@@ -36,7 +39,7 @@ public class InternshipServiceBean implements InternshipService {
 	private InternshipPagingRepository internshipPagingRepository;
 
 	@Autowired
-	private UserService usersService;
+	private AplicationService aplicationService;
 
 	@Override
 	public Internship save(Internship internship) {
@@ -61,7 +64,20 @@ public class InternshipServiceBean implements InternshipService {
 
 	@Override
 	public Page<Internship> find(int page, int limit, User user) {
-		return internshipPagingRepository.findByCreator(user, PageRequest.of(page, limit));
+		if (!user.getUserRole().equals(UserRole.STUDENT)) {
+			return internshipPagingRepository.findByCreator(user, PageRequest.of(page, limit));
+		} else {
+			 Page<Aplication> aplications = aplicationService.findMine(page, limit, user);
+			 List<Internship> internships = new ArrayList<Internship>();
+			 
+			 for(Aplication ap : aplications.getContent()) {
+				 internships.add(ap.getInternship());
+			 }
+			 
+			 
+			 Page<Internship> result = new PageImpl(internships, aplications.getPageable(), aplications.getTotalElements());
+			 return result;
+		}
 	}
 
 	@Override
@@ -80,11 +96,11 @@ public class InternshipServiceBean implements InternshipService {
 	@Override
 	public ResponseEntity<HttpStatus> putInternship(Long id, Internship newi, User user) {
 		Internship old = getById(id);
-		
-		if(Long.compare(old.getCreatedBy().getId(), user.getId()) != 0) {
+
+		if (Long.compare(old.getCreatedBy().getId(), user.getId()) != 0) {
 			return ResponseEntity.badRequest().build();
 		}
-		
+
 		old.setCategory(newi.getCategory());
 		old.setTitle(newi.getTitle());
 		old.setDescription(newi.getDescription());
@@ -93,7 +109,7 @@ public class InternshipServiceBean implements InternshipService {
 		old.setPaid(newi.getPaid());
 		old.setLocation(newi.getLocation());
 		old.setHoursPerDay(newi.getHoursPerDay());
-		
+
 		save(old);
 		return ResponseEntity.accepted().build();
 	}
@@ -101,11 +117,11 @@ public class InternshipServiceBean implements InternshipService {
 	@Override
 	public ResponseEntity<HttpStatus> delete(Long id, User user) {
 		Internship internship = getById(id);
-		
-		if(Long.compare(internship.getCreatedBy().getId(), user.getId()) != 0) {
+
+		if (Long.compare(internship.getCreatedBy().getId(), user.getId()) != 0) {
 			return ResponseEntity.badRequest().build();
 		}
-		
+
 		internship.setDeleted(Boolean.TRUE);
 		save(internship);
 		return ResponseEntity.accepted().build();

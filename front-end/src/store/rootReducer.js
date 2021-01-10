@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import aplications from './applicants/reducer';
 import auth from './auth/reducer';
 import internship from './internships/internship/reducer';
 import internships from './internships/reducer';
@@ -19,4 +20,8 @@ export default combineReducers({
 		list: internships,
 		element: internship
 	}),
+
+	applicants: combineReducers({
+		list: aplications
+	})
 })

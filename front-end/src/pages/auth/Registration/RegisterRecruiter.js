@@ -57,10 +57,7 @@ const Content = (props) => {
 
 	const onSubmit = async (values) => {
 		const data = {
-			firstName: values.firstName,
-			lastName: values.lastName,
 			email: values.email,
-			phoneNumber: values.phone,
 			userRole: USER_ROLE[1].value,
 		}
 
@@ -81,10 +78,7 @@ const Content = (props) => {
 				validateOnChange={false}
 				validateOnBlur={false}
 				initialValues={{
-					firstName: "",
-					lastName: "",
 					email: '',
-					phone: "",
 				}}
 				onSubmit={(values) => onSubmit(values)}
 				validationSchema={validation}
@@ -96,59 +90,19 @@ const Content = (props) => {
 							<Card className={classes.card}>
 								<CardHeader title={"Sign up (Recruiter)"} />
 								<CardContent>
-									<div className={classes.selectorWrapper}>
-										<TextField id="firstName"
-											label="First Name"
-											variant="outlined"
-											className={classes.textInput}
-											required
 
-											value={values.firstName}
-											onChange={handleChange}
-											onBlur={handleBlur}
-											error={!!errors.firstName}
-											helperText={errors.firstName}
-										/>
-										<TextField id="lastName"
-											label="Last Name"
-											variant="outlined"
-											className={classes.textInput}
-											required
+									<TextField id="email"
+										label="E-mail address"
+										variant="outlined"
+										className={classes.textInput}
+										required
 
-											value={values.lastName}
-											onChange={handleChange}
-											onBlur={handleBlur}
-											error={!!errors.lastName}
-											helperText={errors.lastName}
-										/>
-									</div>
-
-									<div className={classes.selectorWrapper}>
-										<TextField id="email"
-											label="E-mail address"
-											variant="outlined"
-											className={classes.textInput}
-											required
-
-											value={values.email}
-											onChange={handleChange}
-											onBlur={handleBlur}
-											error={!!errors.email}
-											helperText={errors.email}
-										/>
-										<TextField id="phone"
-											label="Phone number"
-											variant="outlined"
-											className={classes.textInput}
-											required
-
-											value={values.phone}
-											onChange={handleChange}
-											onBlur={handleBlur}
-											error={!!errors.phone}
-											helperText={errors.phone}
-										/>
-									</div>
+										value={values.email}
+										onChange={handleChange}
+										onBlur={handleBlur}
+										error={!!errors.email}
+										helperText={errors.email}
+									/>
 
 								</CardContent>
 								<CardActions className={classes.buttonBox}>

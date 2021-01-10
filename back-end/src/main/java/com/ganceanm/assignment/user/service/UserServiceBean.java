@@ -20,9 +20,12 @@ import com.ganceanm.assignment.helpers.exception.WrongUserNameException;
 import com.ganceanm.assignment.search.SearchCriteria;
 import com.ganceanm.assignment.security.service.PasswordEncoder;
 import com.ganceanm.assignment.services.email.EmailService;
+import com.ganceanm.assignment.user.model.ProfileRepository;
+import com.ganceanm.assignment.user.model.Profile;
 import com.ganceanm.assignment.user.model.User;
 import com.ganceanm.assignment.user.model.UserPagingRepository;
 import com.ganceanm.assignment.user.model.UserRepository;
+import com.ganceanm.assignment.user.model.UserRole;
 import com.ganceanm.assignment.user.model.UserSpecification;
 import com.ganceanm.assignment.user.model.UserStatus;
 
@@ -33,27 +36,29 @@ public class UserServiceBean implements UserService {
 	private UserRepository usersRepository;
 
 	@Autowired
+	private ProfileRepository profileRepository;
+
+	@Autowired
 	private UserPagingRepository usersSortingRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private EmailService emailService;
-	
 
 	@Override
 	public User save(User user) {
 		user.setModifiedAt(new Date());
-		
+
 		return usersRepository.save(user);
 	}
 
 	@Override
 	public User getById(Long userId) {
 		Optional<User> opt = usersRepository.findById(userId);
-		
-		if(opt.isPresent()) {
+
+		if (opt.isPresent()) {
 			return opt.get();
 		} else {
 			return null;
@@ -84,23 +89,25 @@ public class UserServiceBean implements UserService {
 
 		u.setResetToken(UUID.randomUUID().toString());
 
-		String url = "http://localhost:3000/#/setpassword/" + u.getResetToken();
+		String url = "http://localhost:3000/setpassword/" + u.getResetToken();
 
 		StringBuilder emailText = new StringBuilder("");
-		emailText.append("Hello ").append(u.getFirstName()).append(" ").append(u.getLastName()).append("!\n")
-				.append("To set your password click on the following link:\n").append(url);
+		emailText.append("Hello!\n").append("To set your password click on the following link:\n").append(url);
 
 		emailService.sendEmail(u.getUserName(), "Configure password", emailText.toString());
 
 		u.setCreatedAt(new Date());
 		try {
 			save(u);
+			Profile p = new Profile();
+			p.setUser(u);
+			u.setProfile(profileRepository.save(p));
 			return ResponseEntity.accepted().build();
 		} catch (Exception e) {
 			throw new NotUniqueUserNameException();
 		}
 	}
-	
+
 	@Override
 	public ResponseEntity<HttpStatus> putUser(User user) throws NotUniqueUserNameException {
 		try {
@@ -121,7 +128,7 @@ public class UserServiceBean implements UserService {
 		List<String> keys = new ArrayList<>();
 		keys.add("lastName");
 		keys.add("firstName");
-		
+
 		List<String> text = Arrays.asList(params.split(" "));
 
 		UserSpecification spec = new UserSpecification(new SearchCriteria(keys, "l:", text, Optional.empty()));
@@ -142,14 +149,36 @@ public class UserServiceBean implements UserService {
 	public ResponseEntity<HttpStatus> deleteUser(Long userId) {
 		try {
 			User user = getById(userId);
-			
+
 			user.setStatus(UserStatus.Inactive);
 			user.setDeleted(true);
-			
+
 			save(user);
 			return ResponseEntity.accepted().build();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			return ResponseEntity.noContent().build();
 		}
+	}
+
+	@Override
+	public ResponseEntity<HttpStatus> updateProfile(Profile newp, User users) {
+		Profile profile = users.getProfile();
+		
+		profile.setEmail(newp.getEmail());
+		profile.setPhoneNumber(newp.getPhoneNumber());
+		profile.setAddress(newp.getAddress());
+		
+		profile.setCompanyName(newp.getCompanyName());
+		profile.setCompanyDescription(newp.getCompanyDescription());
+		profile.setName(newp.getName());
+		profile.setAboutMe(newp.getAboutMe());
+		profile.setEducation(newp.getEducation());
+		profile.setExperience(newp.getExperience());
+		profile.setSkills(newp.getSkills());
+		profile.setHobbiesAndInterests(newp.getHobbiesAndInterests());
+		
+		profileRepository.save(profile);
+		
+		return ResponseEntity.accepted().build();
 	}
 }

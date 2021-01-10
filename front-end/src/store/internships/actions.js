@@ -13,6 +13,17 @@ export const getInternships = async (data) => {
 	})
 }
 
+export const getMyInternships = async (data) => {
+	return await api.get(`internships/mine`, { params: data }).then((response) => {
+		store.dispatch({
+			type: INTERNSHIPS.GET,
+			payload: response.data
+		})
+
+		return response.status;
+	})
+}
+
 export const clearInternshipList = () => {
 	store.dispatch({
 		type: INTERNSHIPS.CLEAR,

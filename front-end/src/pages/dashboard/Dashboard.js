@@ -40,7 +40,7 @@ function Dashboard(props) {
 			</AppBar>
 			<div className={classes.content}>
 				<Typography variant="h4">
-					Hello {me.lastName + " " + me.firstName}!
+					Hello!
 				</Typography>
 			</div>
 		</div>

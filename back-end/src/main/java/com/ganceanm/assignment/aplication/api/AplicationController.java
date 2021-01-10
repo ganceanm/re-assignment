@@ -49,16 +49,31 @@ public class AplicationController {
 	public ResponseEntity<HttpStatus> submitAplication(@PathVariable("internshipId") Long internshipId) {
 		return aplicationService.submitAplication(authenticatedUser.getUser(), internshipId);
 	}
+	
+	@ClearanceZero
+	@GetMapping("/{internshipId}")
+	public SearchResponse findByInternship(
+			@RequestParam(defaultValue = "1") int page, 
+			@RequestParam(defaultValue = "15") int limit,
+			@PathVariable("internshipId") Long internshipId) {
+		return searchResponseConverter.toMsg(aplicationService.find(page, limit, internshipId));
+	}
 
 	@ClearanceOne
-	@PutMapping
-	public ResponseEntity<HttpStatus> updateStatus(@Valid @RequestBody UpdateAplicationMsg msg) {
-		return aplicationService.updateAplication(msg.getId(), msg.getStatus());
+	@PutMapping("/promote/{aplicationId}")
+	public ResponseEntity<HttpStatus> promoteAplication(@PathVariable("aplicationId") Long aplicationId) {
+		return aplicationService.promoteAplication(aplicationId);
+	}
+	
+	@ClearanceOne
+	@PutMapping("/reject/{aplicationId}")
+	public ResponseEntity<HttpStatus> rejectAplication(@PathVariable("aplicationId") Long aplicationId) {
+		return aplicationService.rejectAplication(aplicationId);
 	}
 
 	@ClearanceZero
 	@DeleteMapping("/{aplicationId}")
 	public ResponseEntity<HttpStatus> cancelAplication(@PathVariable("aplicationId") Long aplicationId) {
-		return aplicationService.cancelAplication(aplicationId);
+		return aplicationService.cancelAplication(authenticatedUser.getUser(), aplicationId);
 	}
 }

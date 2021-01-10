@@ -1,6 +1,7 @@
 const clearence = {
 	Zero: [
 		"STUDENT",
+		"RECRUITER",
 		"SYS_ADMIN"
 	],
 

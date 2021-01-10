@@ -18,9 +18,19 @@ public class UserMsg {
 	
 	private String phoneNumber;
 	
+	private ProfileMsg profile;
 	
 	
 	
+	
+	public ProfileMsg getProfile() {
+		return profile;
+	}
+
+	public void setProfile(ProfileMsg profile) {
+		this.profile = profile;
+	}
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}

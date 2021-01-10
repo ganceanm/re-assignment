@@ -1,6 +1,6 @@
 import React from "react";
-import { makeStyles, Card, CardContent, TextField, CardActions, Button, CardHeader, CircularProgress, FormControlLabel, Switch, FormControl, InputLabel, Select, MenuItem, Typography } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
+import { makeStyles, Card, CardContent, TextField, CardActions, Button, CardHeader, CircularProgress, FormControlLabel, Switch, FormControl, InputLabel, Select, MenuItem, Typography, Box } from "@material-ui/core";
+import { NavLink, useHistory } from "react-router-dom";
 import { Formik } from "formik";
 import { APP_BAR_HEIGHT } from "../../../../constants/theme";
 import { useSelector } from "react-redux";
@@ -96,6 +96,12 @@ const Content = (props) => {
 			<Card className={classes.card}>
 				<CardHeader title={item.title} />
 				<CardContent>
+					<Box style={{ display: "flex", flexDirection: "row" }}>
+						<Typography>{"Internship posted by:  "}</Typography>
+						<NavLink to={`/users/${item.createdById}`}>
+							{item.createdBy}
+						</NavLink>
+					</Box>
 					<Typography>Category: {CATEGORIES[item.category].display}</Typography>
 					<Typography>Starting date: {moment(new Date(item.startingDate)).format('DD/MM/YYYY')}</Typography>
 					<Typography>Duration: {item.duration} weeks</Typography>

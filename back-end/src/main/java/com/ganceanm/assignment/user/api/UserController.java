@@ -21,7 +21,9 @@ import com.ganceanm.assignment.search.SearchResponseConverter;
 import com.ganceanm.assignment.security.clearance.ClearanceTwo;
 import com.ganceanm.assignment.security.clearance.ClearanceZero;
 import com.ganceanm.assignment.security.model.AuthenticatedUser;
+import com.ganceanm.assignment.user.api.converter.ProfileConverter;
 import com.ganceanm.assignment.user.api.converter.UserConverter;
+import com.ganceanm.assignment.user.api.message.ProfileMsg;
 import com.ganceanm.assignment.user.api.message.UserMsg;
 import com.ganceanm.assignment.user.service.UserService;
 
@@ -38,8 +40,9 @@ public class UserController {
 	@Autowired
 	private UserConverter userConverter;
 	
+	
 	@Autowired
-	private SearchResponseConverter searchResponseConverter;
+	private ProfileConverter profileConverter;
 	
 	
 	
@@ -49,17 +52,7 @@ public class UserController {
 		return userConverter.toMsg(authenticatedUser.getUser());
 	}
 		
-	@ClearanceTwo
-	@GetMapping
-	public SearchResponse find(
-			@RequestParam(defaultValue = "1") int page, 
-			@RequestParam(defaultValue = "15") int limit, 
-			@RequestParam(defaultValue = "") String keyword,
-			@RequestParam(defaultValue = "false") Boolean unassigned) {
 		
-			return searchResponseConverter.toMsg(userService.findByString(page, limit, keyword));		
-	}
-	
 	@ClearanceZero
 	@GetMapping("/{userId}")
 	public UserMsg getUser(@PathVariable("userId") Long userId) {
@@ -67,15 +60,9 @@ public class UserController {
 	}
 		
 	@ClearanceZero
-	@PutMapping
-	public ResponseEntity<HttpStatus> put(@Valid @RequestBody UserMsg userMsg) {
-		try {
-			return userService.putUser(userConverter.toEntity(userMsg));
-		} catch (UserNotFoundException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		} catch (NotUniqueUserNameException e) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).build();
-		}
+	@PutMapping("/profile")
+	public ResponseEntity<HttpStatus> put(@Valid @RequestBody ProfileMsg userMsg) {
+		return userService.updateProfile(profileConverter.toEntity(userMsg), authenticatedUser.getUser());
 	}
 	
 	@ClearanceZero

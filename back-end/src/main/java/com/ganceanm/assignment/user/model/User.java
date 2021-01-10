@@ -5,9 +5,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ganceanm.assignment.helpers.model.BaseTableEntity;
+
 @Entity
 @Table(name = "users")
 public class User extends BaseTableEntity {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -32,14 +34,8 @@ public class User extends BaseTableEntity {
 	@Enumerated(EnumType.STRING)
 	private UserStatus status;
 
-	@Column
-	private String firstName;
-
-	@Column
-	private String lastName;
-
-	@Column(length = 15)
-	private String phoneNumber;
+	@OneToOne
+	private Profile profile;
 
 	public Long getId() {
 		return id;
@@ -47,14 +43,6 @@ public class User extends BaseTableEntity {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
 	}
 
 	public String getUserName() {
@@ -89,27 +77,19 @@ public class User extends BaseTableEntity {
 		this.status = status;
 	}
 
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
 	public String getResetToken() {
 		return resetToken;
 	}
 
 	public void setResetToken(String resetToken) {
 		this.resetToken = resetToken;
+	}
+
+	public Profile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 }

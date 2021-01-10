@@ -8,6 +8,7 @@ export const USER = {
 	GET: "GetUser",
 	PUT: "PutUser",
 	DELETE: "DeleteUser",
+	UPDATE_PROFILE: "UpdateProfile"
 }
 
 export const USERS = {
@@ -21,6 +22,13 @@ export const INTERNSHIPS = {
 	GET_LIST: "GetInternshipsList",
 	GET: "GetInternship",
 	POST: "PostInternship",
+}
+
+export const APPLICANTS = {
+	CLEAR: "ClearApplicantList",
+	GET_LIST: "GetApplicantList",
+	GET: "GetApplicant",
+	POST: "PostApplicant",
 }
 
 export const ME = {

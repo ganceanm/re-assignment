@@ -54,7 +54,7 @@ public class InternshipController {
 	
 	
 	
-	@ClearanceOne
+	@ClearanceZero
 	@GetMapping("/{id}")
 	public InternshipDetailsMsg getInternship(@PathVariable("id") Long id) {
 		return internshipDetailsConverter.toMsg(internshipService.getById(id), authenticatedUser.getUser());

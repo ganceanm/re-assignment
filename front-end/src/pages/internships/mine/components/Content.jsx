@@ -20,11 +20,12 @@ import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import EditIcon from "@material-ui/icons/Edit";
+import ListIcon from "@material-ui/icons/List";
 
 import qs from "qs";
-import { transformQuery } from "../../../lib/helpers/queryTransformer";
+import { transformQuery } from "../../../../lib/helpers/queryTransformer";
 import { useHistory, useLocation } from "react-router-dom";
-import { APP_BAR_HEIGHT } from "../../../constants/theme";
+import { APP_BAR_HEIGHT } from "../../../../constants/theme";
 import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
@@ -156,6 +157,30 @@ export default (props) => {
                         >
                           <VisibilityIcon />
                         </IconButton>
+                        {["RECRUITER", "SYS_ADMIN"].includes(me.userRole) && (
+                          <>
+                            <IconButton
+                              onClick={() =>
+                                history.push(`/internships/edit/${item.id}`)
+                              }
+                              size="small"
+                              className={classes.viewButton}
+                            >
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton
+                              onClick={() =>
+                                history.push(
+                                  `/internships/applicants/${item.id}`
+                                )
+                              }
+                              size="small"
+                              className={classes.viewButton}
+                            >
+                              <ListIcon />
+                            </IconButton>
+                          </>
+                        )}
                       </TableCell>
                     </TableRow>
                   );

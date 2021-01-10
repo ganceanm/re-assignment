@@ -34,14 +34,14 @@ public class AplicationServiceBean implements AplicationService {
 	private InternshipService internshipService;
 
 	@Override
-	public Aplication save(Aplication internship) {
-		if (internship.getId() == null) {
-			internship.setCreatedAt(new Date());
+	public Aplication save(Aplication aplication) {
+		if (aplication.getId() == null) {
+			aplication.setCreatedAt(new Date());
 		}
 
-		internship.setModifiedAt(new Date());
+		aplication.setModifiedAt(new Date());
 
-		return aplicationRepository.save(internship);
+		return aplicationRepository.save(aplication);
 	}
 
 	@Override
@@ -63,7 +63,18 @@ public class AplicationServiceBean implements AplicationService {
 	public Page<Aplication> find(int page, int limit, Internship internship) {
 		return aplicationPagingRepository.findByInternship(internship, PageRequest.of(page, limit));
 	}
+	
+	@Override
+	public Page<Aplication> find(int page, int limit, Long internshipId) {
+		Internship internship = internshipService.getById(internshipId);
+		return aplicationPagingRepository.findByInternship(internship, PageRequest.of(page, limit));
+	}
 
+	@Override
+	public Page<Aplication> findMine(int page, int limit, User user) {
+		return aplicationPagingRepository.findByUser(user, PageRequest.of(page, limit));
+	}
+	
 	@Override
 	public ResponseEntity<HttpStatus> updateAplication(Long id, String status) {
 		Aplication aplication = getById(id);
@@ -87,12 +98,10 @@ public class AplicationServiceBean implements AplicationService {
 	}
 
 	@Override
-	public ResponseEntity<HttpStatus> cancelAplication(Long aplicationId) {
-		Aplication aplication = getById(aplicationId);
+	public ResponseEntity<HttpStatus> cancelAplication(User user, Long internshipId) {
+		Aplication aplication = aplicationRepository.getByUserAndInternshipActive(user, internshipService.getById(internshipId));
 
-		aplication.setDeleted(Boolean.TRUE);
-
-		save(aplication);
+		aplicationRepository.delete(aplication);
 		return ResponseEntity.accepted().build();
 	}
 
@@ -100,5 +109,39 @@ public class AplicationServiceBean implements AplicationService {
 	public Boolean hasUserApplied(User user, Internship internship) {
 		Aplication aplication = aplicationRepository.getByUserAndInternshipActive(user, internship);
 		return aplication != null;
+	}
+
+	@Override
+	public ResponseEntity<HttpStatus> promoteAplication(Long aplicationId) {
+		Aplication aplication = getById(aplicationId);
+
+		switch(aplication.getStatus()) {
+		case SUBMITTED:
+			aplication.setStatus(AplicationStatus.ASSESSMENT);
+			break;
+		case ASSESSMENT:
+			aplication.setStatus(AplicationStatus.INTERVIEW);
+			break;
+		case INTERVIEW:
+			aplication.setStatus(AplicationStatus.ACCEPTED);
+			break;
+		case ACCEPTED:
+			break;
+		case REJECTED:
+			break;
+		}
+
+		save(aplication);
+		return ResponseEntity.accepted().build();
+	}
+
+	@Override
+	public ResponseEntity<HttpStatus> rejectAplication(Long aplicationId) {
+		Aplication aplication = getById(aplicationId);
+
+		aplication.setStatus(AplicationStatus.REJECTED);
+
+		save(aplication);
+		return ResponseEntity.accepted().build();
 	}
 }
