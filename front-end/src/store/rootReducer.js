@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 import auth from './auth/reducer';
+import internship from './internships/internship/reducer';
+import internships from './internships/reducer';
 import me from './me/reducer';
 
 import users from './users/reducer';
@@ -12,5 +14,9 @@ export default combineReducers({
 	users: combineReducers({
 		list: users,
 		element: user
+	}),
+	internships: combineReducers({
+		list: internships,
+		element: internship
 	}),
 })

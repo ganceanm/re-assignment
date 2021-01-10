@@ -50,9 +50,8 @@ public class UserSpecification implements Specification<User> {
 				}
 			}
 			Predicate namePredicate = builder.or(predicates.toArray(new Predicate[predicates.size()]));
-			Predicate roomPredicate = builder.isNull(root.get("room"));
 
-			return builder.and(namePredicate, roomPredicate, statusPredicate, rolePredicate);
+			return builder.and(namePredicate, statusPredicate, rolePredicate);
 		}
 		return null;
 	}

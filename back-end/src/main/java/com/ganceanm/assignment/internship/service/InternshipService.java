@@ -1,6 +1,8 @@
 package com.ganceanm.assignment.internship.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -15,5 +17,7 @@ public interface InternshipService {
 	public ResponseEntity<HttpStatus> create(Internship internship, User users);
 	public Internship getById(Long roomId);
 	public Page<Internship> find(int page, int limit, User user);
-	public ResponseEntity<HttpStatus> putInternship(Long id, int beds, List<Long> users);
+	public Page<Internship> find(int page, int limit, String keyword, Optional<HashMap<String, ?>> optionals);
+	public ResponseEntity<HttpStatus> putInternship(Long id, Internship internship, User user);
+	public ResponseEntity<HttpStatus> delete(Long id, User user);
 }

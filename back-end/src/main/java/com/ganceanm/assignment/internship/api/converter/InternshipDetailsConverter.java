@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.ganceanm.assignment.aplication.service.AplicationService;
 import com.ganceanm.assignment.helpers.exception.UserNotFoundException;
 import com.ganceanm.assignment.internship.api.message.InternshipDetailsMsg;
 import com.ganceanm.assignment.internship.model.Internship;
@@ -24,7 +25,10 @@ public class InternshipDetailsConverter {
 	@Autowired
 	UserService usersService;
 	
-	public InternshipDetailsMsg toMsg(Internship from) {
+	@Autowired
+	AplicationService aplicationService;
+	
+	public InternshipDetailsMsg toMsg(Internship from, User user) {
 		InternshipDetailsMsg to = new InternshipDetailsMsg();
 		
 		to.setId(from.getId());
@@ -39,6 +43,7 @@ public class InternshipDetailsConverter {
 		to.setLocation(from.getLocation());
 		to.setHoursPerDay(from.getHoursPerDay());
 		
+		to.setHasApplied(aplicationService.hasUserApplied(user, from));
 		return to;
 	}
 	

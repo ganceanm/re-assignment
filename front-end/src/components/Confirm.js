@@ -9,59 +9,59 @@ import Slide from '@material-ui/core/Slide';
 import { IconButton } from '@material-ui/core';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
+	return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function Confirm(props) {
-    const { confirm, content, icon } = props;
+	const { confirm, content, icon } = props;
 
-    const [open, setOpen] = useState(false)
+	const [open, setOpen] = useState(false)
 
-    const doConfirm = () => {
-        setOpen(true)
-    }
+	const doConfirm = () => {
+		setOpen(true)
+	}
 
-    const confirmResult = (result) => {
-        setOpen(false)
-        if (result) {
-            confirm()
-        }
-    }
+	const confirmResult = (result) => {
+		setOpen(false)
+		if (result) {
+			confirm()
+		}
+	}
 
-    return (
-        <div>
-            <Dialog
-                open={open}
-                TransitionComponent={Transition}
-                keepMounted
-                aria-labelledby="alert-dialog-slide-title"
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogTitle id="alert-dialog-slide-title">Figyelem!</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        Biztosan végrehajtja a műveletet?
+	return (
+		<div>
+			<Dialog
+				open={open}
+				TransitionComponent={Transition}
+				keepMounted
+				aria-labelledby="alert-dialog-slide-title"
+				aria-describedby="alert-dialog-slide-description"
+			>
+				<DialogTitle id="alert-dialog-slide-title">Warning!</DialogTitle>
+				<DialogContent>
+					<DialogContentText id="alert-dialog-slide-description">
+						Are you sure you want to do this?
                 </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => confirmResult(false)} color="primary">
-                        Nem
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => confirmResult(false)} color="primary">
+						No
                 </Button>
-                    <Button onClick={() => confirmResult(true)} color="primary">
-                        Igen
+					<Button onClick={() => confirmResult(true)} color="primary">
+						Yes
                 </Button>
-                </DialogActions>
-            </Dialog>
-            {icon ?
-                <IconButton onClick={doConfirm}>
-                    {content}
-                </IconButton>
-                :
-                <Button onClick={doConfirm} variant="contained" color="primary">
-                    {content}
-                </Button>
-            }
+				</DialogActions>
+			</Dialog>
+			{icon ?
+				<IconButton onClick={doConfirm}>
+					{content}
+				</IconButton>
+				:
+				<Button onClick={doConfirm} variant="contained" color="primary">
+					{content}
+				</Button>
+			}
 
-        </div>
-    );
+		</div>
+	);
 }

@@ -17,9 +17,17 @@ public class InternshipDetailsMsg {
 	private String location;
 	private Integer hoursPerDay;
 	
+	private Boolean hasApplied;
 	
 	
 	
+	
+	public Boolean getHasApplied() {
+		return hasApplied;
+	}
+	public void setHasApplied(Boolean hasApplied) {
+		this.hasApplied = hasApplied;
+	}
 	public Date getStartingDate() {
 		return startingDate;
 	}

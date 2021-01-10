@@ -34,13 +34,13 @@ function Dashboard(props) {
 				<Toolbar>
 					{toggle}
 					<Typography variant="h5">
-						Kezdőlap
+						Dashboard
                     </Typography>
 				</Toolbar>
 			</AppBar>
 			<div className={classes.content}>
 				<Typography variant="h4">
-					Üdvözöljük {me.lastName + " " + me.firstName}!
+					Hello {me.lastName + " " + me.firstName}!
 				</Typography>
 			</div>
 		</div>

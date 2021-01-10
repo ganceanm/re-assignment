@@ -14,8 +14,9 @@ import com.ganceanm.assignment.user.model.User;
 public interface AplicationService {
 	public Aplication save(Aplication aplication);
 	public List<Aplication> getAll();
-	public ResponseEntity<HttpStatus> submitAplication(Long applicantId, Long internshipId);
+	public ResponseEntity<HttpStatus> submitAplication(User applicant, Long internshipId);
 	public Aplication getById(Long aplicationId);
+	public Boolean hasUserApplied(User user, Internship internship);
 	public Page<Aplication> find(int page, int limit, User user);
 	public Page<Aplication> find(int page, int limit, Internship internship);
 	public ResponseEntity<HttpStatus> updateAplication(Long id, String status);

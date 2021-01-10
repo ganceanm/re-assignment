@@ -1,8 +1,11 @@
 package com.ganceanm.assignment.internship.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +19,9 @@ import com.ganceanm.assignment.internship.model.Internship;
 import com.ganceanm.assignment.internship.model.InternshipCategory;
 import com.ganceanm.assignment.internship.model.InternshipPagingRepository;
 import com.ganceanm.assignment.internship.model.InternshipRepository;
+import com.ganceanm.assignment.internship.model.InternshipSpecification;
 import com.ganceanm.assignment.internship.model.InternshipStatus;
+import com.ganceanm.assignment.search.SearchCriteria;
 import com.ganceanm.assignment.user.model.User;
 import com.ganceanm.assignment.user.model.UserRole;
 import com.ganceanm.assignment.user.service.UserService;
@@ -26,10 +31,9 @@ public class InternshipServiceBean implements InternshipService {
 
 	@Autowired
 	private InternshipRepository internshipRepository;
-	
+
 	@Autowired
 	private InternshipPagingRepository internshipPagingRepository;
-
 
 	@Autowired
 	private UserService usersService;
@@ -50,7 +54,6 @@ public class InternshipServiceBean implements InternshipService {
 		return internshipRepository.getOne(internshipId);
 	}
 
-	
 	@Override
 	public List<Internship> getAll() {
 		return internshipRepository.findAll();
@@ -58,26 +61,63 @@ public class InternshipServiceBean implements InternshipService {
 
 	@Override
 	public Page<Internship> find(int page, int limit, User user) {
-		return	internshipPagingRepository.findByCreator(user, PageRequest.of(page, limit));
+		return internshipPagingRepository.findByCreator(user, PageRequest.of(page, limit));
 	}
-	
-	@Override
-	public ResponseEntity<HttpStatus> putInternship(Long id, int beds, List<Long> users) {
-		Internship internship = getById(id);
 
-		//TODO: add content
-			save(internship);
-			return ResponseEntity.accepted().build();
+	@Override
+	public Page<Internship> find(int page, int limit, String keyword, Optional<HashMap<String, ?>> optionals) {
+		List<String> keys = new ArrayList<>();
+		keys.add("title");
+		keys.add("description");
+
+		List<String> text = Arrays.asList(keyword.split(" "));
+
+		InternshipSpecification spec = new InternshipSpecification(new SearchCriteria(keys, ":", text, optionals));
+
+		return internshipPagingRepository.findAll(spec, PageRequest.of(page, limit));
+	}
+
+	@Override
+	public ResponseEntity<HttpStatus> putInternship(Long id, Internship newi, User user) {
+		Internship old = getById(id);
+		
+		if(Long.compare(old.getCreatedBy().getId(), user.getId()) != 0) {
+			return ResponseEntity.badRequest().build();
 		}
+		
+		old.setCategory(newi.getCategory());
+		old.setTitle(newi.getTitle());
+		old.setDescription(newi.getDescription());
+		old.setStartingDate(newi.getStartingDate());
+		old.setDuration(newi.getDuration());
+		old.setPaid(newi.getPaid());
+		old.setLocation(newi.getLocation());
+		old.setHoursPerDay(newi.getHoursPerDay());
+		
+		save(old);
+		return ResponseEntity.accepted().build();
+	}
 
 	@Override
-	public ResponseEntity<HttpStatus> create(Internship internship, User user) {
+	public ResponseEntity<HttpStatus> delete(Long id, User user) {
+		Internship internship = getById(id);
 		
-		internship.setCreatedBy(user);
-		internship.setStatus(InternshipStatus.ACTIVE);
+		if(Long.compare(internship.getCreatedBy().getId(), user.getId()) != 0) {
+			return ResponseEntity.badRequest().build();
+		}
 		
+		internship.setDeleted(Boolean.TRUE);
 		save(internship);
 		return ResponseEntity.accepted().build();
 	}
-	}
 
+	@Override
+	public ResponseEntity<HttpStatus> create(Internship internship, User user) {
+
+		internship.setCreatedBy(user);
+		internship.setStatus(InternshipStatus.ACTIVE);
+
+		save(internship);
+		return ResponseEntity.accepted().build();
+	}
+}

@@ -16,7 +16,21 @@ export const USERS = {
 	POST: "PostUser",
 }
 
+export const INTERNSHIPS = {
+	CLEAR: "ClearInternshipList",
+	GET_LIST: "GetInternshipsList",
+	GET: "GetInternship",
+	POST: "PostInternship",
+}
+
 export const ME = {
 	FETCHED: "Fetched",
 	LOGGED_OUT: "LoggedOut",
+}
+
+export const CATEGORIES = {
+	IT: { value: "IT", display: "Information Technology" },
+	BIOLOGY: { value: "BIOLOGY", display: "Biology" },
+	TOURISM: { value: "TOURISM", display: "Tourism" },
+	MEDICAL: { value: "MEDICAL", display: "Medical" },
 }

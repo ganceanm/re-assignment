@@ -61,7 +61,7 @@ const Content = (props) => {
 			lastName: values.lastName,
 			email: values.email,
 			phoneNumber: values.phone,
-			userRole: USER_ROLE[1],
+			userRole: USER_ROLE[1].value,
 		}
 
 		const result = await registerUser(data)

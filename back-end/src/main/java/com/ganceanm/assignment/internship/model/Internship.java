@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Type;
+
 import com.ganceanm.assignment.helpers.model.BaseTableEntity;
 import com.ganceanm.assignment.user.model.User;
 
@@ -38,7 +40,7 @@ public class Internship extends BaseTableEntity {
 	@Enumerated(EnumType.STRING)
 	private InternshipStatus status;
 	
-	@Lob
+	@Column
     private String description;
 	
 	@Column

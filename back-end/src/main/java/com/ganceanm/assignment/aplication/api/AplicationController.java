@@ -45,9 +45,9 @@ public class AplicationController {
 	}
 
 	@ClearanceZero
-	@PostMapping
-	public ResponseEntity<HttpStatus> submitAplication(@Valid @RequestBody SubmitAplicationMsg msg) {
-		return aplicationService.submitAplication(msg.getApplicantId(), msg.getInternshipId());
+	@PostMapping("/{internshipId}")
+	public ResponseEntity<HttpStatus> submitAplication(@PathVariable("internshipId") Long internshipId) {
+		return aplicationService.submitAplication(authenticatedUser.getUser(), internshipId);
 	}
 
 	@ClearanceOne

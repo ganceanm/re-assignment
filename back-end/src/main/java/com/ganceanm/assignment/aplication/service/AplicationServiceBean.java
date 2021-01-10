@@ -75,10 +75,10 @@ public class AplicationServiceBean implements AplicationService {
 	}
 
 	@Override
-	public ResponseEntity<HttpStatus> submitAplication(Long applicantId, Long internshipId) {
+	public ResponseEntity<HttpStatus> submitAplication(User applicant, Long internshipId) {
 		Aplication aplication = new Aplication();
 		
-		aplication.setApplicant(usersService.getById(applicantId));
+		aplication.setApplicant(applicant);
 		aplication.setInternship(internshipService.getById(internshipId));
 		aplication.setStatus(AplicationStatus.SUBMITTED);
 		
@@ -94,5 +94,11 @@ public class AplicationServiceBean implements AplicationService {
 
 		save(aplication);
 		return ResponseEntity.accepted().build();
+	}
+
+	@Override
+	public Boolean hasUserApplied(User user, Internship internship) {
+		Aplication aplication = aplicationRepository.getByUserAndInternshipActive(user, internship);
+		return aplication != null;
 	}
 }

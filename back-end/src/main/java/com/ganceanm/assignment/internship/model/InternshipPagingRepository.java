@@ -12,4 +12,5 @@ import com.ganceanm.assignment.user.model.User;
 public interface InternshipPagingRepository extends PagingAndSortingRepository<Internship, Long>, JpaSpecificationExecutor<Internship>{
 	@Query("SELECT i FROM Internship i where i.createdBy = :user order by i.createdAt desc") 
     Page<Internship> findByCreator(@Param("user") User user, Pageable page);
+	
 }
